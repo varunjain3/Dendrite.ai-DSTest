@@ -1,0 +1,361 @@
+{
+    "session_name": "test",
+    "session_description": "test",
+    "design_state_data": {
+        "session_info": {
+            "project_id": "1",
+            "experiment_id": "kkkk-11",
+            "dataset": "iris_modified.csv",
+            "session_name": "test",
+            "session_description": "test"
+        },
+
+        "target": {
+            "prediction_type": "Regression",
+            "target": "petal_width",
+            "type": "regression",
+            "partitioning": true
+        },
+        "train": {
+            "policy": "Split the dataset",
+            "time_variable": "sepal_length",
+            "sampling_method": "No sampling(whole data)",
+            "split": "Randomly",
+            "k_fold": false,
+            "train_ratio": 0,
+            "random_seed": 0
+        },
+        "metrics": {
+            "optomize_model_hyperparameters_for": "AUC",
+            "optimize_threshold_for": "F1 Score",
+            "compute_lift_at": 0,
+            "cost_matrix_gain_for_true_prediction_true_result": 1,
+            "cost_matrix_gain_for_true_prediction_false_result": 0,
+            "cost_matrix_gain_for_false_prediction_true_result": 0,
+            "cost_matrix_gain_for_false_prediction_false_result": 0
+        },
+        "feature_handling": {
+            "sepal_length": {
+                "feature_name": "sepal_length",
+                "is_selected": true,
+                "feature_variable_type": "numerical",
+                "feature_details": {
+                    "numerical_handling": "Keep as regular numerical feature",
+                    "rescaling": "No rescaling",
+                    "make_derived_feats": false,
+                    "missing_values": "Impute",
+                    "impute_with": "Average of values",
+                    "impute_value": 0
+                }
+            },
+            "sepal_width": {
+                "feature_name": "sepal_width",
+                "is_selected": true,
+                "feature_variable_type": "numerical",
+                "feature_details": {
+                    "numerical_handling": "Keep as regular numerical feature",
+                    "rescaling": "No rescaling",
+                    "make_derived_feats": false,
+                    "missing_values": "Impute",
+                    "impute_with": "custom",
+                    "impute_value": -1
+                }
+            },
+            "petal_length": {
+                "feature_name": "petal_length",
+                "is_selected": true,
+                "feature_variable_type": "numerical",
+                "feature_details": {
+                    "numerical_handling": "Keep as regular numerical feature",
+                    "rescaling": "No rescaling",
+                    "make_derived_feats": false,
+                    "missing_values": "Impute",
+                    "impute_with": "Average of values",
+                    "impute_value": 0
+                }
+            },
+            "petal_width": {
+                "feature_name": "petal_width",
+                "is_selected": true,
+                "feature_variable_type": "numerical",
+                "feature_details": {
+                    "numerical_handling": "Keep as regular numerical feature",
+                    "rescaling": "No rescaling",
+                    "make_derived_feats": false,
+                    "missing_values": "Impute",
+                    "impute_with": "custom",
+                    "impute_value": -2
+                }
+            },
+            "species": {
+                "feature_name": "species",
+                "is_selected": true,
+                "feature_variable_type": "text",
+                "feature_details": {
+                    "text_handling": "Tokenize and hash",
+                    "hash_columns": 0
+                }
+            }
+        },
+        "feature_generation": {
+            "linear_interactions": [
+                ["petal_length", "sepal_width"]
+            ],
+            "linear_scalar_type": "robust",
+            "polynomial_interactions": [
+                "petal_length/sepal_width",
+                "petal_width/species"
+            ],
+            "explicit_pairwise_interactions": [
+                "sepal_width/sepal_length",
+                "petal_width/sepal_length"
+            ]
+        },
+        "feature_reduction": {
+            "feature_reduction_method": "Tree-based",
+            "num_of_features_to_keep": "4",
+            "num_of_trees": "5",
+            "depth_of_trees": "6"
+        },
+        "hyperparameters": {
+            "stratergy": "Grid Search",
+            "shuffle_grid": true,
+            "random_state": 1,
+            "max_iterations": 2,
+            "max_search_time": 3,
+            "parallelism": 5,
+            "cross_validation_stratergy": "Time-based K-fold(with overlap)",
+            "num_of_folds": 6,
+            "split_ratio": 0,
+            "stratified": true
+        },
+        "weighting_stratergy": {
+            "weighting_stratergy_method": "Sample weights",
+            "weighting_stratergy_weight_variable": "petal_length"
+        },
+        "probability_calibration": {
+            "probability_calibration_method": "Sigmoid - Platt Scaling"
+        },
+        "algorithms": {
+            "RandomForestClassifier": {
+                "model_name": "Random Forest Classifier",
+                "is_selected": false,
+                "min_trees": 10,
+                "max_trees": 30,
+                "feature_sampling_statergy": "Default",
+                "min_depth": 20,
+                "max_depth": 30,
+                "min_samples_per_leaf_min_value": 5,
+                "min_samples_per_leaf_max_value": 50,
+                "parallelism": 0
+            },
+            "RandomForestRegressor": {
+                "model_name": "Random Forest Regressor",
+                "is_selected": true,
+                "min_trees": 10,
+                "max_trees": 20,
+                "feature_sampling_statergy": "Default",
+                "min_depth": 20,
+                "max_depth": 25,
+                "min_samples_per_leaf_min_value": 5,
+                "min_samples_per_leaf_max_value": 10,
+                "parallelism": 0
+            },
+            "GBTClassifier": {
+                "model_name": "Gradient Boosted Trees",
+                "is_selected": false,
+                "num_of_BoostingStages": [67, 89],
+                "feature_sampling_statergy": "Fixed number",
+                "learningRate": [],
+                "use_deviance": true,
+                "use_exponential": false,
+                "fixed_number": 22,
+                "min_subsample": 1,
+                "max_subsample": 2,
+                "min_stepsize": 0.1,
+                "max_stepsize": 0.5,
+                "min_iter": 20,
+                "max_iter": 40,
+                "min_depth": 5,
+                "max_depth": 7
+
+            },
+            "GBTRegressor": {
+                "model_name": "Gradient Boosted Trees",
+                "is_selected": false,
+                "num_of_BoostingStages": [67, 89],
+                "feature_sampling_statergy": "Fixed number",
+                "use_deviance": true,
+                "use_exponential": false,
+                "fixed_number": 22,
+                "min_subsample": 1,
+                "max_subsample": 2,
+                "min_stepsize": 0.1,
+                "max_stepsize": 0.5,
+                "min_iter": 20,
+                "max_iter": 40,
+                "min_depth": 5,
+                "max_depth": 7
+            },
+            "LinearRegression": {
+                "model_name": "LinearRegression",
+                "is_selected": false,
+                "parallelism": 2,
+                "min_iter": 30,
+                "max_iter": 50,
+                "min_regparam": 0.5,
+                "max_regparam": 0.8,
+                "min_elasticnet": 0.5,
+                "max_elasticnet": 0.8
+            },
+            "LogisticRegression": {
+                "model_name": "LogisticRegression",
+                "is_selected": false,
+                "parallelism": 2,
+                "min_iter": 30,
+                "max_iter": 50,
+                "min_regparam": 0.5,
+                "max_regparam": 0.8,
+                "min_elasticnet": 0.5,
+                "max_elasticnet": 0.8
+            },
+            "RidgeRegression": {
+                "model_name": "RidgeRegression",
+                "is_selected": false,
+                "regularization_term": "Specify values to test",
+                "min_iter": 30,
+                "max_iter": 50,
+                "min_regparam": 0.5,
+                "max_regparam": 0.8
+            },
+            "LassoRegression": {
+                "model_name": "Lasso Regression",
+                "is_selected": false,
+                "regularization_term": "Specify values to test",
+                "min_iter": 30,
+                "max_iter": 50,
+                "min_regparam": 0.5,
+                "max_regparam": 0.8
+            },
+            "ElasticNetRegression": {
+                "model_name": "Lasso Regression",
+                "is_selected": false,
+                "regularization_term": "Specify values to test",
+                "min_iter": 30,
+                "max_iter": 50,
+                "min_regparam": 0.5,
+                "max_regparam": 0.8,
+                "min_elasticnet": 0.5,
+                "max_elasticnet": 0.8
+            },
+            "xg_boost": {
+                "model_name": "XG Boost",
+                "is_selected": false,
+                "use_gradient_boosted_tree": true,
+                "dart": true,
+                "tree_method": "",
+                "random_state": 0,
+                "max_num_of_trees": 0,
+                "early_stopping": true,
+                "early_stopping_rounds": 2,
+                "max_depth_of_tree": [56, 89],
+                "learningRate": [89, 76],
+                "l1_regularization": [77],
+                "l2_regularization": [78],
+                "gamma": [68],
+                "min_child_weight": [67],
+                "sub_sample": [67],
+                "col_sample_by_tree": [67],
+                "replace_missing_values": false,
+                "parallelism": 0
+            },
+            "DecisionTreeRegressor": {
+                "model_name": "Decision Tree",
+                "is_selected": false,
+                "min_depth": 4,
+                "max_depth": 7,
+                "use_gini": false,
+                "use_entropy": true,
+                "min_samples_per_leaf": [12, 6],
+                "use_best": true,
+                "use_random": true
+            },
+            "DecisionTreeClassifier": {
+                "model_name": "Decision Tree",
+                "is_selected": false,
+                "min_depth": 4,
+                "max_depth": 7,
+                "use_gini": false,
+                "use_entropy": true,
+                "min_samples_per_leaf": [12, 6],
+                "use_best": true,
+                "use_random": true
+            },
+            "SVM": {
+                "model_name": "Support Vector Machine",
+                "is_selected": false,
+                "linear_kernel": true,
+                "rep_kernel": true,
+                "polynomial_kernel": true,
+                "sigmoid_kernel": true,
+                "c_value": [566, 79],
+                "auto": true,
+                "scale": true,
+                "custom_gamma_values": true,
+                "tolerance": 7,
+                "max_iterations": 7
+            },
+            "SGD": {
+                "model_name": "Stochastic Gradient Descent",
+                "is_selected": false,
+                "use_logistics": true,
+                "use_modified_hubber_loss": false,
+                "max_iterations": false,
+                "tolerance": 56,
+                "use_l1_regularization": "on",
+                "use_l2_regularization": "on",
+                "use_elastic_net_regularization": true,
+                "alpha_value": [79, 56],
+                "parallelism": 1
+            },
+            "KNN": {
+                "model_name": "KNN",
+                "is_selected": false,
+                "k_value": [78],
+                "distance_weighting": true,
+                "neighbour_finding_algorithm": "Automatic",
+                "random_state": 0,
+                "p_value": 0
+            },
+            "extra_random_trees": {
+                "model_name": "Extra Random Trees",
+                "is_selected": false,
+                "num_of_trees": [45, 489],
+                "feature_sampling_statergy": "Square root and Logarithm",
+                "max_depth": [12, 45],
+                "min_samples_per_leaf": [78, 56],
+                "parallelism": 3
+            },
+            "neural_network": {
+                "model_name": "Neural Network",
+                "is_selected": false,
+                "hidden_layer_sizes": [67, 89],
+                "activation": "",
+                "alpha_value": 0,
+                "max_iterations": 0,
+                "convergence_tolerance": 0,
+                "early_stopping": true,
+                "solver": "ADAM",
+                "shuffle_data": true,
+                "initial_learning_rate": 0,
+                "automatic_batching": true,
+                "beta_1": 0,
+                "beta_2": 0,
+                "epsilon": 0,
+                "power_t": 0,
+                "momentum": 0,
+                "use_nesterov_momentum": false
+            }
+        }
+    }
+}
